@@ -54,7 +54,8 @@ echo *****Marco BonBonTools*****
 echo -Disable
 echo 1.Disable Bloatwares
 echo 2.Disable Backdoors/Tasks/System update
-echo 3.Back
+echo 3.Disable SOS
+echo 4.Back
 SET PRGM=6
 set /P PRGM="#Type&Press Enter: "
 IF /I "%PRGM%" EQU "1" (
@@ -64,10 +65,14 @@ IF /I "%PRGM%" EQU "2" (
     GOTO CLTASKS
 )
 IF /I "%PRGM%" EQU "3" (
+    GOTO DSOS
+)
+IF /I "%PRGM%" EQU "4" (
     GOTO A
 )
-:DEBLOAT
-
+:DSOS
+adb shell pm disable-user com.android.sos
+adb shell pm disable-user com.dq.sos
 goto DISABLE
 
 :CLTASKS
@@ -75,13 +80,16 @@ echo Disable tasks...
 adb shell pm disable-user com.bird.storagecleanup
 adb shell pm disable-user com.adups.fota.sysoper
 adb shell pm disable-user com.adups.fota
+adb shell pm disable-user com.sangfei.warranty
+adb shell pm disable-user com.mediatek.systemupdate
 echo Done.
 pause
-goto DEBLOAT
+goto DISABLE
 
 :DEBLOAT
 adb uninstall com.chinatelecom.bestpayclient
 adb shell pm disable-user com.bird.storagecleanup
+adb shell pm disable-user com.qiku.android.calendar
 goto DISABLE
 
 :UNINSTALL
