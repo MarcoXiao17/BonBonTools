@@ -71,6 +71,8 @@ IF /I "%PRGM%" EQU "4" (
     GOTO A
 )
 :DSOS
+echo Disable SOS? This may slow you down when you making emergency calls!(press any key to continue)
+pause 
 adb shell pm disable-user com.android.sos
 adb shell pm disable-user com.dq.sos
 goto DISABLE
@@ -140,7 +142,7 @@ echo -
 echo -
 echo Author : Marco
 echo RayLab_Ray through the space
-echo For tools for other devices, visit MarcoXiao17@coolapk.com
+echo For tools for other devices, visit GitHub.com/MarcoXiao17
 
 pause
 goto A
