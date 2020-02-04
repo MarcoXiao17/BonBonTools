@@ -53,9 +53,12 @@ CLS
 echo *****Marco BonBonTools*****
 echo -Disable
 echo 1.Disable Bloatwares
-echo 2.Disable Backdoors/Tasks/System update
+echo 2.Disable Backdoors/Tasks
 echo 3.Disable SOS
-echo 4.Back
+echo 4.Disable System update
+echo 5.Disable Stock launcher (A 3rd party launcher will be installed)
+echo 6.Back
+
 SET PRGM=6
 set /P PRGM="#Type&Press Enter: "
 IF /I "%PRGM%" EQU "1" (
@@ -68,6 +71,12 @@ IF /I "%PRGM%" EQU "3" (
     GOTO DSOS
 )
 IF /I "%PRGM%" EQU "4" (
+    GOTO DUPD
+)
+IF /I "%PRGM%" EQU "5" (
+    GOTO DLAUNCHER
+)
+IF /I "%PRGM%" EQU "6" (
     GOTO A
 )
 :DSOS
@@ -80,18 +89,28 @@ goto DISABLE
 :CLTASKS
 echo Disable tasks...
 adb shell pm disable-user com.bird.storagecleanup
-adb shell pm disable-user com.adups.fota.sysoper
-adb shell pm disable-user com.adups.fota
 adb shell pm disable-user com.sangfei.warranty
-adb shell pm disable-user com.mediatek.systemupdate
 echo Done.
 pause
+goto DISABLE
+
+:DUPD
+adb shell pm disable-user com.adups.fota.sysoper
+adb shell pm disable-user com.adups.fota
+adb shell pm disable-user com.mediatek.systemupdate
 goto DISABLE
 
 :DEBLOAT
 adb uninstall com.chinatelecom.bestpayclient
 adb shell pm disable-user com.bird.storagecleanup
 adb shell pm disable-user com.qiku.android.calendar
+goto DISABLE
+
+:DLAUNCHER
+adb shell pm disable-user com.qiku.android.launcher2
+adb shell pm disable-user com.qiku.android.calendar
+adb shell pm disable-user addon.sprd.launcher3.drm
+adb install openlauncher.apk
 goto DISABLE
 
 :UNINSTALL
@@ -124,7 +143,8 @@ CLS
 echo *****Marco BonBonTools*****
 echo -Scripts
 echo Loading script...
-OneKey.bat
+echo -------------------------------------now in USER SCRIPT--------------------------------------
+Script.bat
 goto A
 
 
@@ -132,16 +152,16 @@ goto A
 CLS
 echo *****Marco BonBonTools*****
 echo -About
-echo BonBonTools -AndroidV1
+echo BonBonTools -Android		V1.1
 echo Tested Devices:
-echo Philips 4G series
-echo Kingsun 4G series
-echo BIHEE 4G series
-echo and so on...
+echo Philips/Bihee/Kingsun 4G series(MT673X)
+echo Lephone 4G series(SPRD)
 echo -
+echo Database version 20.02.04
+echo Extend Database: Not supported in BAT version
 echo -
-echo Author : Marco
-echo RayLab_Ray through the space
+echo Author : MarcoXiao17
+echo -
 echo For tools for other devices, visit GitHub.com/MarcoXiao17
 
 pause
